@@ -8,6 +8,7 @@ import { Context as LocationContext } from '../context/LocationContext';
 import useLocation from '../hooks/useLocation';
 import TrackForm from '../components/TrackForm';
 import Spacer from '../components/Spacer';
+import { FontAwesome } from '@expo/vector-icons';
 import '../_mockLocation';
 
 const TrackCreateScreen = ({ isFocused }) => {
@@ -37,5 +38,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 15
     }
 });
+
+TrackCreateScreen.navigationOptions = {
+    title: 'Create Track',
+    tabBarIcon: <FontAwesome name="plus" size={20} />
+};
 
 export default withNavigationFocus(TrackCreateScreen);

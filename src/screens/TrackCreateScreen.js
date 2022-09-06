@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,10 +11,12 @@ import Spacer from '../components/Spacer';
 import '../_mockLocation';
 
 const TrackCreateScreen = ({ isFocused }) => {
-    const { state, addLocation } = useContext(LocationContext);
-    const [err] = useLocation(isFocused, (location) => {
-        addLocation(location, state.recording);
-    });
+    const { state: { recording }, addLocation } = useContext(LocationContext);
+    const callBack = useCallback((location) => {
+        addLocation(location, recording);
+    }, [recording]);
+
+    const [err] = useLocation(isFocused || recording, callBack);
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
             <Spacer>
